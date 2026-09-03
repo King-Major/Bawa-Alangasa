@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+/* ---------------------------------------------------------------------
+   Design tokens
+   A page-length journey from night into dawn: worship and identity open
+   in indigo night, the discography section is the transition, and The
+   Clarity Room / booking arrive in full sand-lit daylight. Footer
+   returns to night — the day's cycle closing, as it does every dawn.
+   ------------------------------------------------------------------ */
+@theme {
+  --font-display: "Fraunces", "Iowan Old Style", ui-serif, serif;
+  --font-body: "Work Sans", ui-sans-serif, system-ui, sans-serif;
+
+  /* night */
+  --color-night: #12192b;
+  --color-night-deep: #0b101e;
+  --color-indigo: #1d2a44;
+  --color-indigo-soft: #2a3b5c;
+
+  /* dawn */
+  --color-sand: #f1ead9;
+  --color-sand-deep: #e7dcc1;
+  --color-parchment: #f6f1e4;
+
+  /* text */
+  --color-ink: #21273b;
+  --color-slate: #a9aec2;
+  --color-umber: #6e6152;
+
+  /* accent */
+  --color-amber: #d98c3f;
+  --color-amber-soft: #f0b366;
+  --color-clay: #a85a3c;
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    font-family: var(--font-body);
+  }
+
+  h1, h2, h3, h4 {
+    font-family: var(--font-display);
+  }
+
+  a, button, input, select, textarea {
+    outline-offset: 3px;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  input:focus-visible,
+  select:focus-visible,
+  textarea:focus-visible {
+    outline: 2px solid var(--color-amber);
+  }
+
+  ::selection {
+    background: var(--color-amber);
+    color: var(--color-night-deep);
+  }
+}
+
+@layer utilities {
+  /* the recurring "dawn line" — marks each section threshold */
+  .dawn-rule {
+    height: 1px;
+    background: linear-gradient(
+      to right,
+      transparent,
+      color-mix(in srgb, var(--color-amber) 55%, transparent),
+      transparent
+    );
+  }
+
+  /* editorial drop cap for the opening biography paragraph */
+  .drop-cap::first-letter {
+    font-family: var(--font-display);
+    float: left;
+    font-size: 3.4em;
+    line-height: 0.85;
+    padding-right: 0.09em;
+    padding-top: 0.03em;
+    color: var(--color-amber-soft);
+  }
+}
+
+@keyframes breathe {
+  0%, 100% { opacity: 0.95; transform: scale(1); }
+  50% { opacity: 0.55; transform: scale(1.08); }
+}
+
+.clarity-rays {
+  transform-origin: center;
+  animation: breathe 7s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .clarity-rays {
+    animation: none;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
